@@ -1,0 +1,20 @@
+{
+    "id": "notebook",
+    "name": "Notebook",
+    "price": 2999,
+    "description": "Melhor do mercado",
+    "stock": 12,
+    "img": "./api/products/notebook/notebook-photo.jpeg",
+    "reviews": [
+        {
+            "name": "Maria Soledade",
+            "totalStars": 4,
+            "description": "Gostei, mas poderia ser melhor"
+        },
+        {
+            "name": "Matheus Nogueira",
+            "totalStars": 5,
+            "description": "Gostei bastante"
+        }
+    ]
+}
