@@ -8,6 +8,19 @@
 </head>
 <body>
     <div id="app">
+      <section class="products">
+        <div v-for="product in products" :key="product.id" class="product">
+          <img class="product_img" :src="product.img" alt="">
+
+          <div class="product_info">
+            <span class="product_price">
+              {{product.price}}
+            </span>
+            <h2 class="product_name">{{product.name}}</h2>
+          </div>
+        </div>
+      </section>
+
       {{products}}
     </div>
     <script src="./app.js"></script>

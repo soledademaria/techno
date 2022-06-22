@@ -1,10 +1,10 @@
 {
-    "id": "notebook",
-    "name": "Notebook",
-    "price": 2999,
-    "description": "Melhor do mercado",
-    "stock": 12,
-    "img": "./api/products/notebook/notebook-foto.jpg",
+    "id": "smartphone",
+    "name": "Smartphone",
+    "price": 1999,
+    "description": "Smartphone ultra moderno",
+    "stock": 10,
+    "img": "./api/products/smartphone/smartphone-foto.jpg",
     "reviews": [
         {
             "name": "Maria Soledade",
