@@ -5,6 +5,11 @@ const vm = new Vue({
             products: []
         }
     },
+    filters:{
+        formatedPrice(value){
+            return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
+        }
+    },
     methods:{
         fetchProducts(){
             fetch("./api/products.json")
