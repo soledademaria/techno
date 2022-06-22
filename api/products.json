@@ -12,7 +12,7 @@
         "img": "./api/products/smartphone/smartphone.jpg"
     },
     {
-        "id": "table",
+        "id": "tablet",
         "name": "Tablet",
         "price": 999,
         "img": "./api/products/tablet/tablet.jpg"

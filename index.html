@@ -1,16 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <script src="vue.js"></script>
-    <link rel="stylesheet" href="style/main.css">
+    <link rel="stylesheet" href="style/main.css" />
     <title>Techno</title>
-</head>
-<body>
+  </head>
+  <body>
     <div id="app">
+      <!-- modal -->
+      <section v-if="product" class="modal">
+        <div class="modal_container">
+          <div class="modal_img">
+            <img :src="product.img" alt="" />
+          </div>
+          <div class="modal_dados">
+            <span class="modal_price"> {{product.price}}</span>
+            <h2 class="modal_title">{{product.name}}</h2>
+            <p>{{product.description}}</p>
+
+            <button class="modal_btn">Adicionar item</button>
+
+            <div class="modal_review">
+              <h2 class="reviews_subtitle">Avaliações</h2>
+              <ul>
+                <li v-for="review in product.reviews" class="review">
+                  <p class="reviews_description">{{review.description}}</p>
+                  <p class="reviews_user">
+                    {{review.name}} | {{review.totalStars}} estrelas
+                  </p>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- produtos -->
       <section class="products">
-        <div v-for="product in products" :key="product.id" class="product">
-          <img class="product_img" :src="product.img" alt="">
+        <div
+          v-for="product in products"
+          :key="product.id"
+          @click="fetchProduct(product.id)"
+          class="product"
+        >
+          <img class="product_img" :src="product.img" alt="" />
 
           <div class="product_info">
             <span class="product_price">
@@ -20,9 +54,7 @@
           </div>
         </div>
       </section>
-
-      {{products}}
     </div>
     <script src="./app.js"></script>
-</body>
+  </body>
 </html>
