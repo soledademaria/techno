@@ -83,6 +83,18 @@ body {
     align-items: end;
     gap: 50px;
     padding: 0px 50px 50px 0;
+    animation: fadeIn .3s forwards;
+}
+
+@keyframes fadeIn{
+    from{
+        opacity: 0;
+        transform: translate3d(50px, 0, 0);
+    }
+    to{
+        opacity: 1;
+        transform: translate3d(0px, 0, 0);
+    }
 }
 
 .modal-img {
@@ -101,43 +113,56 @@ body {
     grid-column: 2;
 }
 
-.modal-name{
+.modal-name {
     font-size: 3rem;
 }
 
-.modal-btn{
+.modal-btn {
     margin-top: 80px;
     background: #000;
     cursor: pointer;
     color: #fff;
     border: none;
     font-size: 1rem;
-    padding: 10px  25px;
+    padding: 10px 25px;
     font-family: 'Noto Serif';
 }
 
-.modal-btn:active{
+.modal-btn:active {
     background: #808080;
+}
+
+.close-modal-btn {
+    border-radius: 50px;
+    border: 2px solid #000;
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    font-size: 1rem;
+    box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.1), 0px 4px 10px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
 }
 
 .reviews {
     grid-column: 2;
 }
 
-.review-list{
+.review-list {
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     padding-bottom: 20px;
 }
 
-.review{
+.review {
     font-size: 1.75rem;
 }
 
-.review-description{
+.review-description {
     color: rgba(0, 0, 0, 0.7);
-    margin: 20px 0 5px 0 ;
+    margin: 20px 0 5px 0;
 }
 
-.review-username{
+.review-username {
     font-weight: bold;
 }
