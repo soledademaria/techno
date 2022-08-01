@@ -4,7 +4,7 @@
     "price": 769,
     "description": "Tablet com design e visual moderno com acabamento em metal",
     "stock": 10,
-    "productImg": "./api/products/tablet/tablet.jpg",
+    "productImg": "./api/products/tablet/tablet-foto.jpg",
     "reviews": [
         {
             "name": "Adrian",

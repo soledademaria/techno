@@ -4,7 +4,7 @@
     "price": 1959,
     "description": "Inspirado nos melhores elementos do design de ponta, é moderno por dentro e por fora",
     "stock": 20,
-    "productImg": "./api/products/smartphone/smartphone.jpg",
+    "productImg": "./api/products/smartphone/smartphone-foto.jpg",
     "reviews": [
         {
             "name": "Lucimara",

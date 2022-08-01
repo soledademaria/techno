@@ -4,7 +4,7 @@
     "price": 3000,
     "description": "Notebook conveniente para acompanhar as suas tarefas do dia a dia, com recursos tecnológicos ao seu lado sempre que precisar.",
     "stock": 20,
-    "productImg": "./api/products/notebook/notebook.jpg",
+    "productImg": "./api/products/notebook/notebook-foto.jpg",
     "reviews": [
         {
             "name": "Nícolas",

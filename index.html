@@ -15,11 +15,42 @@
   </head>
   <body>
     <div id="app">
+      <section v-if="productDetail" class="product-modal">
+        <div class="modal-container">
+          <div class="modal-img">
+            <img :src="productDetail.productImg" :alt="productDetail.name" />
+          </div>
+          <div class="modal-details">
+            <span class="modal-price">
+              {{productDetail.price | currencyType}}</span
+            >
+            <h2 class="modal-name">{{productDetail.name}}</h2>
+            <p class="modal-description"> {{productDetail.description}}</p>
+            <button class="modal-btn">Adicionar Item</button>
+          </div>
+          <div class="modal-reviews"></div>
+          <div class="reviews">
+            <h2 class="review">Avaliações</h2>
+            <ul>
+              <li v-for="review in productDetail.reviews" class="review-list">
+                <p class="review-description">{{review.description}}</p>
+                <p class="review-username">{{review.name}} | {{review.stars}} estrelas</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
       <section class="products">
-        <div v-for="product in products" :key="product.id" class="product-item">
+        <div
+          v-for="product in products"
+          :key="product.id"
+          class="product-item"
+          @click="getProductItem(product.id)"
+        >
           <img :src="product.img" class="product-img" />
           <div class="product-info">
-            <span class="product-price">{{product.price}}</span>
+            <span class="product-price">{{product.price | currencyType}}</span>
             <h2 class="product.name">{{product.name}}</h2>
           </div>
         </div>
