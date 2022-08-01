@@ -1,20 +1,25 @@
 {
     "id": "smartphone",
     "name": "Smartphone",
-    "price": 1999,
-    "description": "Smartphone ultra moderno",
-    "stock": 10,
-    "img": "./api/products/smartphone/smartphone-foto.jpg",
+    "price": 1959,
+    "description": "Inspirado nos melhores elementos do design de ponta, é moderno por dentro e por fora",
+    "stock": 20,
+    "productImg": "./api/products/smartphone/smartphone.jpg",
     "reviews": [
         {
-            "name": "Maria Soledade",
-            "totalStars": 4,
-            "description": "Gostei, mas poderia ser melhor"
+            "name": "Lucimara",
+            "stars": 4,
+            "description": "Muito bonito, mas a cor veio a errada." 
         },
         {
-            "name": "Matheus Nogueira",
-            "totalStars": 5,
-            "description": "Gostei bastante"
+            "name": "Newton",
+            "stars": 4,
+            "description": "Perfeito, não vi nada de ruim." 
+        },
+        {
+            "name": "Ayla",
+            "stars": 5,
+            "description": "Excelente custo benefício, ótimo celular. Processador muito bom" 
         }
     ]
 }

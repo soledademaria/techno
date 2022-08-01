@@ -1,20 +1,25 @@
 {
-  "id": "smartwatch",
-  "name": "Smartwatch",
-  "price": 1199,
-  "description": "O melhor do mercado.",
-  "stock": 5,
-  "img": "./api/products/smartwatch/smartwatch-foto.jpg",
-  "reviews": [
-    {
-      "name": "Rogério",
-      "totalStars": 5,
-      "description": "Gostei muito do produto, atendeu todas as minhas necessidades."
-    },
-    {
-      "name": "Nathália",
-      "totalStars": 4,
-      "description": "Gostei, mas o preço poderia ser melhor."
-    }
-  ]
+    "id": "smartwatch",
+    "name": "Smartwatch",
+    "price": 1959,
+    "description": "Avançado em todos os sentidos",
+    "stock": 15,
+    "productImg": "./api/products/smartwatch/smartwatch-foto.jpg",
+    "reviews": [
+        {
+            "name": "Alessandra",
+            "stars": 5,
+            "description": "Lindo e bem feminino." 
+        },
+        {
+            "name": "Luciano",
+            "stars": 4,
+            "description": "Chegou rápido." 
+        },
+        {
+            "name": "George",
+            "stars": 5,
+            "description": "Produto fantástico, incomparável!!!" 
+        }
+    ]
 }

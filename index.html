@@ -3,58 +3,27 @@
   <head>
     <meta charset="UTF-8" />
     <script src="vue.js"></script>
-    <link rel="stylesheet" href="style/main.css" />
+    <script defer src="js/main.js"></script>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
     <title>Techno</title>
   </head>
   <body>
     <div id="app">
-      <!-- modal -->
-      <section v-if="product" class="modal">
-        <div class="modal_container">
-          <div class="modal_img">
-            <img :src="product.img" alt="" />
-          </div>
-          <div class="modal_dados">
-            <span class="modal_price"> {{product.price}}</span>
-            <h2 class="modal_title">{{product.name}}</h2>
-            <p>{{product.description}}</p>
-
-            <button class="modal_btn">Adicionar item</button>
-
-            <div class="modal_review">
-              <h2 class="reviews_subtitle">Avaliações</h2>
-              <ul>
-                <li v-for="review in product.reviews" class="review">
-                  <p class="reviews_description">{{review.description}}</p>
-                  <p class="reviews_user">
-                    {{review.name}} | {{review.totalStars}} estrelas
-                  </p>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- produtos -->
       <section class="products">
-        <div
-          v-for="product in products"
-          :key="product.id"
-          @click="fetchProduct(product.id)"
-          class="product"
-        >
-          <img class="product_img" :src="product.img" alt="" />
-
-          <div class="product_info">
-            <span class="product_price">
-              {{product.price | formatedPrice}}
-            </span>
-            <h2 class="product_name">{{product.name}}</h2>
+        <div v-for="product in products" :key="product.id" class="product-item">
+          <img :src="product.img" class="product-img" />
+          <div class="product-info">
+            <span class="product-price">{{product.price}}</span>
+            <h2 class="product.name">{{product.name}}</h2>
           </div>
         </div>
       </section>
     </div>
-    <script src="./app.js"></script>
   </body>
 </html>

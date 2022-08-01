@@ -1,20 +1,25 @@
 {
-  "id": "tablet",
-  "name": "Tablet",
-  "price": 899,
-  "description": "O melhor do mercado.",
-  "stock": 2,
-  "img": "./api/products/tablet/tablet-foto.jpg",
-  "reviews": [
-    {
-      "name": "Rogério",
-      "totalStars": 5,
-      "description": "Gostei muito do produto, atendeu todas as minhas necessidades."
-    },
-    {
-      "name": "Nathália",
-      "totalStars": 4,
-      "description": "Gostei, mas o preço poderia ser melhor."
-    }
-  ]
+    "id": "tablet",
+    "name": "Tablet",
+    "price": 769,
+    "description": "Tablet com design e visual moderno com acabamento em metal",
+    "stock": 10,
+    "productImg": "./api/products/tablet/tablet.jpg",
+    "reviews": [
+        {
+            "name": "Adrian",
+            "stars": 2,
+            "description": "É de péssimo sensor pra clique!!" 
+        },
+        {
+            "name": "Charles",
+            "stars": 5,
+            "description": "Ótimo custo/benefício" 
+        },
+        {
+            "name": "José",
+            "stars": 5,
+            "description": "Bastanta útil." 
+        }
+    ]
 }

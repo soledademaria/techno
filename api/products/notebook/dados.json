@@ -1,20 +1,25 @@
 {
     "id": "notebook",
     "name": "Notebook",
-    "price": 2999,
-    "description": "Melhor do mercado",
-    "stock": 12,
-    "img": "./api/products/notebook/notebook-foto.jpg",
+    "price": 3000,
+    "description": "Notebook conveniente para acompanhar as suas tarefas do dia a dia, com recursos tecnológicos ao seu lado sempre que precisar.",
+    "stock": 20,
+    "productImg": "./api/products/notebook/notebook.jpg",
     "reviews": [
         {
-            "name": "Maria Soledade",
-            "totalStars": 4,
-            "description": "Gostei, mas poderia ser melhor"
+            "name": "Nícolas",
+            "stars": 5,
+            "description": "Notebook excelente, duração da bateria excelente" 
         },
         {
-            "name": "Matheus Nogueira",
-            "totalStars": 5,
-            "description": "Gostei bastante"
+            "name": "Savanah",
+            "stars": 1,
+            "description": "Produto apresentou defeito na tela." 
+        },
+        {
+            "name": "Bruno",
+            "stars": 4,
+            "description": "Excelente custo benefício do mercado, porém esquenta um pouco" 
         }
     ]
 }
