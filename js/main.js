@@ -25,12 +25,17 @@ const vm = new Vue({
     },
     totalShop() {
       let total = 0;
-      if (this.shopProducts.length) { 
-       total = this.shopProducts.reduce((acc, item) => {
+      if (this.shopProducts.length) {
+        total = this.shopProducts.reduce((acc, item) => {
           return acc + item.price;
         }, 0);
       }
       return total;
+    },
+  },
+  watch: {
+    shopProducts() {
+      window.localStorage.products = JSON.stringify(this.shopProducts);
     },
   },
   methods: {
@@ -66,9 +71,13 @@ const vm = new Vue({
     removeProduct(index) {
       this.shopProducts.splice(index, 1);
     },
+    checkLocalstorage(){
+      if(window.localStorage.products)
+        this.shopProducts = JSON.parse(window.localStorage.products)
+    }
   },
-
   created() {
     this.fetchProducts();
+    this.checkLocalstorage()
   },
 });
