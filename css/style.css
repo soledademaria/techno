@@ -86,12 +86,13 @@ body {
     animation: fadeIn .3s forwards;
 }
 
-@keyframes fadeIn{
-    from{
+@keyframes fadeIn {
+    from {
         opacity: 0;
         transform: translate3d(50px, 0, 0);
     }
-    to{
+
+    to {
         opacity: 1;
         transform: translate3d(0px, 0, 0);
     }
@@ -128,7 +129,7 @@ body {
     font-family: 'Noto Serif';
 }
 
-.btn-disabled{
+.btn-disabled {
     background: #808080;
     cursor: auto;
     color: #fff;
@@ -174,7 +175,7 @@ body {
     font-weight: bold;
 }
 
-.header{
+.header {
     display: flex;
     justify-content: space-between;
     max-width: 900px;
@@ -182,20 +183,53 @@ body {
     margin: 0 auto;
 }
 
-.logo{
+.logo {
     width: 80px;
 }
 
-.carrinho-menu{
+.carrinho-menu {
     display: flex;
     align-items: center;
 }
 
-.carrinho-menu::after{
+.carrinho-menu::after {
     content: '';
     display: inline-block;
     background: url("../assets/carrinho.svg") no-repeat center center;
     width: 25px;
     height: 25px;
     margin-left: 10px;
+}
+
+.dialog-alert {
+    position: absolute;
+    top: 20px;
+    left: 0px;
+    z-index: 10;
+    width: 100%;
+    text-align: center;
+    display: none;
+}
+
+.dialog-alert-message {
+    background: green;
+    color: #fff;
+    display: inline-block;
+    padding: 6px 40px;
+}
+
+ .active{
+    display: block;
+    animation: fadeInDown .3s forwards;
+}
+
+@keyframes fadeInDown{
+    from {
+        transform: translate3d(0, -30px, 0);
+        opacity: 0;
+    }
+    to{
+        transform: translate3d(0, 0px, 0);
+        opacity: 1;
+    }
 }

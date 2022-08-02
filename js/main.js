@@ -5,6 +5,8 @@ const vm = new Vue({
       products: [],
       productDetail: false,
       shopProducts: [],
+      messageAlert: "",
+      activeAlert: false,
     };
   },
   filters: {
@@ -66,18 +68,28 @@ const vm = new Vue({
       if (this.productDetail.stock > 0) {
         this.productDetail.stock--;
         this.shopProducts.push({ id, name, price });
+        this.alert("Item adicionado!").finally(
+          () => (this.activeAlert = false)
+        );
       }
     },
     removeProduct(index) {
       this.shopProducts.splice(index, 1);
     },
-    checkLocalstorage(){
-      if(window.localStorage.products)
-        this.shopProducts = JSON.parse(window.localStorage.products)
-    }
+    checkLocalstorage() {
+      if (window.localStorage.products)
+        this.shopProducts = JSON.parse(window.localStorage.products);
+    },
+    alert(message) {
+      this.messageAlert = message;
+      this.activeAlert = true;
+      setTimeout(() => {
+        this.activeAlert = false
+      }, 900)
+    },
   },
   created() {
     this.fetchProducts();
-    this.checkLocalstorage()
+    this.checkLocalstorage();
   },
 });
