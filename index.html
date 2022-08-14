@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <script src="vue.js"></script>
     <script defer src="js/main.js"></script>
+
     <link rel="stylesheet" href="css/style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -15,54 +16,97 @@
   </head>
   <body>
     <div id="app">
+      <!-- Header -->
       <header class="header">
-        <img class="logo" src="./assets/techno.svg" alt="logo" />
-        <div class="carrinho-menu">{{totalShop | currencyType}} | {{shopProducts.length}}</div>
+        <img src="./assets/techno.svg" alt="logo" class="logo" />
+        <div class="header__menu">
+          <div class="header__menu-shop">
+            {{totalProductsPrice | currencyType}} | {{productsInCart.length}}
+          </div>
+          <div class="header-menu-shop-cart-quantity">
+            {{productsInCart.length}}
+          </div>
+        </div>
       </header>
-      <section class="products">
+
+      <!-- Lista de Produtos -->
+      <section class="product-list">
         <div
           v-for="product in products"
           :key="product.id"
-          class="product-item"
-          @click="openModal(product.id)"
+          class="product-list__item"
+          @click="openDialog(product.id)"
         >
-          <img :src="product.img" class="product-img" />
-          <div class="product-info">
-            <span class="product-price">{{product.price | currencyType}}</span>
-            <h2 class="product.name">{{product.name}}</h2>
+          <img
+            :src="product.img"
+            :alt="product.name"
+            class="product-list__img"
+          />
+          <div class="product-list__item-info">
+            <span class="product-list__item-price">
+              {{product.price | currencyType}}
+            </span>
+            <h2 class="product-list__item-name">{{product.name}}</h2>
           </div>
         </div>
       </section>
 
-      <section v-if="productDetail" class="product-modal" @click="closeModal">
-        <div class="modal-container">
-          <div class="modal-img">
-            <img :src="productDetail.productImg" :alt="productDetail.name" />
+      <!-- Modal com os produtos -->
+      <section
+        v-if="productDetail"
+        class="product-dialog"
+        @click="closeDialog"
+      >
+        <div class="product-dialog__container">
+          <div class="product-dialog__container-img">
+            <img
+              :src="dialog.products.productImg"
+              :alt="dialog.products.name"
+            />
           </div>
-          <div class="modal-details">
-            <button @click="productDetail = false" class="close-modal-btn">
-              x
-            </button>
-            <span class="modal-price">
-              {{productDetail.price | currencyType}}</span
-            >
-            <h2 class="modal-name">{{productDetail.name}}</h2>
-            <p class="modal-description">{{productDetail.description}}</p>
+
+          <div class="product-dialog__details">
             <button
-             :class="[productDetail.stock > 0 ? 'modal-btn' : ['modal-btn', 'btn-disabled']]"
-              type="button"
-              @click="addProduct"
+              class="product-dialog__button-close-dialog"
+              @click="productDetail = false"
             >
-             {{buttonTitle}}
+              X
+            </button>
+
+            <span class="product-dialog__price">
+              {{dialog.products.price | currencyType}}
+            </span>
+
+            <h2 class="product-dialog__product-name">
+              {{dialog.products.name}}
+            </h2>
+
+            <span class="product-dialog__description">
+              {{dialog.products.description}}
+            </span> <br>
+
+            <button
+              type="button"
+              :class="[dialog.products.stock > 0 ? 'product-dialog__close-dialog' : ['product-dialog__button-close-dialog', 'product-dialog__button-disabled']]"
+            @click="addProduct"
+              >
+              {{buttonTitle}}
             </button>
           </div>
-          <div class="modal-reviews"></div>
-          <div class="reviews">
-            <h2 class="review">Avaliações</h2>
+
+          <div class="product-dialog__reviews"></div>
+          <div class="product-dialog__review">
+            <h2 class="product-dialog__review-title">Avaliações</h2>
             <ul>
-              <li v-for="review in productDetail.reviews" class="review-list">
-                <p class="review-description">{{review.description}}</p>
-                <p class="review-username">
+              <li
+                v-for="review in dialog.products.reviews"
+                class="product-dialog__review-list"
+              >
+                <p class="product-dialog__review-description">
+                  {{review.description}}
+                </p>
+
+                <p class="product-dialog__review-username">
                   {{review.name}} | {{review.stars}} estrelas
                 </p>
               </li>
@@ -71,8 +115,10 @@
         </div>
       </section>
 
-      <div class="dialog-alert" :class="{active: activeAlert}">
-        <p class="dialog-alert-message">{{messageAlert}}</p>
+      <div class="dialog-alert" :class="{active: dialogAlertActive}">
+        <p class="dialog-alert__message">
+          {{dialogAlertMessage}}
+        </p>
       </div>
     </div>
   </body>

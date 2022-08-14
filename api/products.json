@@ -8,7 +8,7 @@
     {
         "id": "smartphone",
         "name": "Smartphone",
-        "price": 1.959,
+        "price": 2000,
         "img": "./api/products/smartphone/smartphone.jpg"
     },
     {

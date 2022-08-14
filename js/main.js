@@ -4,11 +4,16 @@ const vm = new Vue({
     return {
       products: [],
       productDetail: false,
-      shopProducts: [],
-      messageAlert: "",
-      activeAlert: false,
+      dialog: {
+        products: {},
+      },
+      productsInCart: [],
+      dialogAlertMessage: '',
+      dialogAlertActive: false,
+      productIdSelected: 0
     };
   },
+
   filters: {
     currencyType(value) {
       return value.toLocaleString("pt-br", {
@@ -17,79 +22,109 @@ const vm = new Vue({
       });
     },
   },
+
   computed: {
     buttonTitle() {
       let title = "";
       title =
-        this.productDetail.stock > 0 ? "Adicionar Item" : "Produto Esgotado";
-
+        this.dialog.products.stock > 0 ? "Adicionar item" : "Produto esgotado";
       return title;
     },
-    totalShop() {
+    totalProductsPrice() {
       let total = 0;
-      if (this.shopProducts.length) {
-        total = this.shopProducts.reduce((acc, item) => {
+      if (this.productsInCart.length) {
+        total = this.productsInCart.reduce((acc, item) => {
           return acc + item.price;
         }, 0);
       }
       return total;
     },
   },
+
   watch: {
-    shopProducts() {
-      window.localStorage.products = JSON.stringify(this.shopProducts);
+    productsInCart() {
+      window.localStorage.products = JSON.stringify(this.productsInCart);
     },
+    productDetail(){
+    const productSelected = this.products.find((product) => product.id === this.productIdSelected)
+    const hash = productSelected.id || "";
+    document.title = productSelected.name || 'Techno'
+    history.pushState(null, null, `#${hash}`)
+    }
   },
+
   methods: {
-    fetchProducts() {
+    // requisição dos produtos
+    getProducts() {
       fetch("./api/products.json")
         .then((res) => res.json())
         .then((res) => (this.products = res));
     },
-    openModal(id) {
+
+    // abrir dialog
+    openDialog(id) {
+      this.productDetail = true;
+      this.productIdSelected = id
       this.getProductItem(id);
       window.scrollTo({
         top: 0,
         behavior: "smooth",
       });
     },
+
+    // requisição dos detalhes do produto clicado
     getProductItem(id) {
       fetch(`./api/products/${id}/dados.json`)
         .then((res) => res.json())
-        .then((res) => (this.productDetail = res));
+        .then((res) => (this.dialog.products = res));
     },
-    closeModal({ target, currentTarget }) {
-      if (target === currentTarget) {
+
+    // fechar dialog
+    closeDialog({ target, currencyTarget }) {
+      if (target === currencyTarget) {
         this.productDetail = false;
       }
     },
+
+    // adicionar produto
     addProduct() {
-      const { id, name, price } = this.productDetail;
-      if (this.productDetail.stock > 0) {
-        this.productDetail.stock--;
-        this.shopProducts.push({ id, name, price });
-        this.alert("Item adicionado!").finally(
-          () => (this.activeAlert = false)
-        );
+      const { id, name, price } = this.dialog.products;
+      if (this.dialog.products.stock > 0) {
+        this.dialog.products.stock--;
+        this.productsInCart.push({ id, name, price });
+        this.alert('Item adicionado ao carrinho!');
       }
     },
+
+    // remover produto
     removeProduct(index) {
-      this.shopProducts.splice(index, 1);
+      this.productsInCart.splice(index, 1);
     },
+
     checkLocalstorage() {
       if (window.localStorage.products)
-        this.shopProducts = JSON.parse(window.localStorage.products);
+        this.productsInCart = JSON.parse(window.localStorage.products);
     },
-    alert(message) {
-      this.messageAlert = message;
-      this.activeAlert = true;
+
+    alert(message){
+      this.dialogAlertMessage = message;
+      this.dialogAlertActive = true;
       setTimeout(() => {
-        this.activeAlert = false
+        this.dialogAlertActive = false
       }, 900)
     },
+
+    router(){
+      const hash = document.location.hash;
+      if(hash){
+        this.getProductItem(hash.replace('#', ''))
+      }
+    }
   },
+
   created() {
-    this.fetchProducts();
+    this.getProducts();
+    this.router()
     this.checkLocalstorage();
   },
 });
