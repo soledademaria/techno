@@ -19,7 +19,7 @@
       <!-- Header -->
       <header class="header">
         <img src="./assets/techno.svg" alt="logo" class="logo" />
-        <div class="header__menu">
+        <div class="header__menu" @click="showProductsSelected = true">
           <div class="header__menu-shop">
             {{totalProductsPrice | currencyType}} | {{productsInCart.length}}
           </div>
@@ -52,11 +52,7 @@
       </section>
 
       <!-- Modal com os produtos -->
-      <section
-        v-if="productDetail"
-        class="product-dialog"
-        @click="closeDialog"
-      >
+      <section v-if="productDetail" class="product-dialog" @click="closeDialog">
         <div class="product-dialog__container">
           <div class="product-dialog__container-img">
             <img
@@ -83,13 +79,23 @@
 
             <span class="product-dialog__description">
               {{dialog.products.description}}
-            </span> <br>
+            </span>
+            <br />
 
             <button
+              v-if="productIsAlready"
               type="button"
               :class="[dialog.products.stock > 0 ? 'product-dialog__close-dialog' : ['product-dialog__button-close-dialog', 'product-dialog__button-disabled']]"
-            @click="addProduct"
-              >
+              @click="showProducts"
+            >
+              Ver Carrinho
+            </button>
+            <button
+              v-else
+              type="button"
+              :class="[dialog.products.stock > 0 ? 'product-dialog__close-dialog' : ['product-dialog__button-close-dialog', 'product-dialog__button-disabled']]"
+              @click=" addProduct "
+            >
               {{buttonTitle}}
             </button>
           </div>
@@ -115,10 +121,76 @@
         </div>
       </section>
 
+      <!-- Modal com os produtos selecionados -->
+      <section
+        v-if="showProductsSelected"
+        class="product-selected-dialog"
+        :class="{active: showProductsSelected}"
+        @click="closeProductSelectedDialog"
+      >
+        <div class="product-selected-dialog__container">
+          <button
+            class="product-selected-dialog__button-close-dialog"
+            @click="showProductsSelected = false"
+          >
+            x
+          </button>
+          <h2 class="product-selected-dialog__title">Carrinho</h2>
+          <div v-if="productsInCart.length">
+            <ul class="product-selected-dialog__list">
+              <li
+                v-for="(product, indexProduct) in productsInCart"
+                class="product-selected_dialog__item"
+              >
+                <p>{{product.name}}</p>
+                <!-- <div style="display: flex"> -->
+                <!-- <div>
+                  </div> -->
+                <!-- <div style="margin-left: 15px">
+                    <button
+                      style="
+                        border: none;
+                        outline: none;
+                        background: #000; color: #fff; cursor: pointer;
+                      "
+                    >
+                      -
+                    </button>
+                    {{product.quantity}}
+                    <button
+                      style="
+                        border: none;
+                        outline: none;
+                        background: #000; color: #fff; cursor: pointer;
+                      "
+                      @click="addProductInCart(product)"
+                    >
+                      +
+                    </button>
+                  </div> -->
+                <!-- </div> -->
+                <p class="product-selected_dialog__price">
+                  {{product.price | currencyType}}
+                </p>
+                <button
+                  class="product-selected_dialog__button-remove"
+                  @click="removeProduct(indexProduct)"
+                >
+                  <img src="./assets/trash.svg" alt="" />
+                </button>
+              </li>
+            </ul>
+            <p class="product-selected_dialog__totals">
+              {{totalProductsPrice | currencyType}}
+            </p>
+            <button class="finalize-purchase-button">Finalizar compra</button>
+          </div>
+          <p v-else>Seu carrinho está vazio :(</p>
+        </div>
+      </section>
+
       <div class="dialog-alert" :class="{active: dialogAlertActive}">
-        <p class="dialog-alert__message">
-          {{dialogAlertMessage}}
-        </p>
+        <p class="dialog-alert__message">{{dialogAlertMessage}}</p>
       </div>
     </div>
   </body>

@@ -8,9 +8,12 @@ const vm = new Vue({
         products: {},
       },
       productsInCart: [],
-      dialogAlertMessage: '',
+      dialogAlertMessage: "",
       dialogAlertActive: false,
-      productIdSelected: 0
+      showProductsSelected: false,
+      productIsAlready: false,
+      productIdSelected: 0,
+      totals: 0,
     };
   },
 
@@ -25,19 +28,26 @@ const vm = new Vue({
 
   computed: {
     buttonTitle() {
-      let title = "";
-      title =
-        this.dialog.products.stock > 0 ? "Adicionar item" : "Produto esgotado";
+      let title = "Adicionar Item";
+      if (this.productIsAlready) {
+        title = "Ver Carrinho";
+      }
+      // title =
+      //   this.dialog.products.stock > 0 ? "Adicionar item" : "Produto esgotado";
       return title;
     },
-    totalProductsPrice() {
-      let total = 0;
-      if (this.productsInCart.length) {
-        total = this.productsInCart.reduce((acc, item) => {
-          return acc + item.price;
-        }, 0);
-      }
-      return total;
+    // totalProductsPrice() {},
+    totalProductsPrice: {
+      // getter
+      get() {
+        let total = 0;
+        if (this.productsInCart.length) {
+          total = this.productsInCart.reduce((acc, item) => {
+            return acc + item.price;
+          }, 0);
+        }
+        return total;
+      },
     },
   },
 
@@ -45,12 +55,14 @@ const vm = new Vue({
     productsInCart() {
       window.localStorage.products = JSON.stringify(this.productsInCart);
     },
-    productDetail(){
-    const productSelected = this.products.find((product) => product.id === this.productIdSelected)
-    const hash = productSelected.id || "";
-    document.title = productSelected.name || 'Techno'
-    history.pushState(null, null, `#${hash}`)
-    }
+    productDetail() {
+      const productSelected = this.products.find(
+        (product) => product.id === this.productIdSelected
+      );
+      const hash = productSelected.id || "";
+      document.title = productSelected.name || "Techno";
+      history.pushState(null, null, `#${hash}`);
+    },
   },
 
   methods: {
@@ -64,7 +76,14 @@ const vm = new Vue({
     // abrir dialog
     openDialog(id) {
       this.productDetail = true;
-      this.productIdSelected = id
+      this.productIsAlready = true;
+      this.productIdSelected = id;
+      const productIsAlready = this.productsInCart.find(
+        (product) => product.id === this.productIdSelected
+      );
+      if (!productIsAlready) {
+        this.productIsAlready = false;
+      }
       this.getProductItem(id);
       window.scrollTo({
         top: 0,
@@ -88,11 +107,20 @@ const vm = new Vue({
 
     // adicionar produto
     addProduct() {
-      const { id, name, price } = this.dialog.products;
+      const { id, name, price, quantity } = this.dialog.products;
       if (this.dialog.products.stock > 0) {
         this.dialog.products.stock--;
-        this.productsInCart.push({ id, name, price });
-        this.alert('Item adicionado ao carrinho!');
+        const productIsAlready = this.productsInCart.find(
+          (product) => product.id === id
+        );
+        if (productIsAlready) {
+          this.productIsAlready = true;
+        } else {
+          this.productIsAlready = false;
+          this.productsInCart.push({ id, name, price, quantity });
+          this.alert("Item adicionado ao carrinho!");
+        }
+        this.productIsAlready = true;
       }
     },
 
@@ -101,30 +129,42 @@ const vm = new Vue({
       this.productsInCart.splice(index, 1);
     },
 
+    closeProductSelectedDialog({ target, currencyTarget }) {
+      if (target === currencyTarget) {
+        this.showProductsSelected = false;
+      }
+    },
+
     checkLocalstorage() {
       if (window.localStorage.products)
         this.productsInCart = JSON.parse(window.localStorage.products);
     },
 
-    alert(message){
+    showProducts() {
+      this.productDetail = false;
+      this.showProductsSelected = true;
+    },
+
+    // dialog
+    alert(message) {
       this.dialogAlertMessage = message;
       this.dialogAlertActive = true;
       setTimeout(() => {
-        this.dialogAlertActive = false
-      }, 900)
+        this.dialogAlertActive = false;
+      }, 900);
     },
 
-    router(){
+    router() {
       const hash = document.location.hash;
-      if(hash){
-        this.getProductItem(hash.replace('#', ''))
+      if (hash) {
+        this.getProductItem(hash.replace("#", ""));
       }
-    }
+    },
   },
 
   created() {
     this.getProducts();
-    this.router()
+    this.router();
     this.checkLocalstorage();
   },
 });
